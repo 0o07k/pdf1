@@ -21,7 +21,7 @@ jobs:
       run: |
         npm install
         npm i pdf-lib@1.17.1 pdfjs-dist mammoth @fontsource-variable/cairo
-        node copy-libs.js
+        if [ -f copy-libs.js ]; then node copy-libs.js; fi
         mkdir -p www
         if [ -f nass-pdf-tools.html ]; then cp nass-pdf-tools.html www/index.html; else echo "<!DOCTYPE html><html><head><title>PDF App</title></head><body><h1>PDF App</h1></body></html>" > www/index.html; fi
 
@@ -49,3 +49,4 @@ jobs:
       with:
         name: app-debug
         path: android/app/build/outputs/apk/debug/app-debug.apk
+
