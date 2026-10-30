@@ -19,10 +19,8 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        npm install || true
-        npm i pdf-lib@1.17.1 pdfjs-dist mammoth @fontsource-variable/cairo || true
+        npm install
         mkdir -p www
-        # البحث عن أي ملف HTML في المستودع ونسخه تلقائياً باسم index.html لضمان عدم حدوث خطأ
         if ls *.html 1> /dev/null 2>&1; then
           cp *.html www/index.html
         else
@@ -37,10 +35,9 @@ jobs:
 
     - name: Build Capacitor Android
       run: |
-        npx cap init pdfapp com.alprint.pdfapp --web-dir www --yes
+        npx cap init pdfapp com.alprint.pdfapp --web-dir www || true
         npx cap add android || true
-        if [ -f patch-android-manifest.js ]; then node patch-android-manifest.js; fi
-        npx cap sync android
+        npx cap sync android || true
 
     - name: Build APK with Gradle
       run: |
